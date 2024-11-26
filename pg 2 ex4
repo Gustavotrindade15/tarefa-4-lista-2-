@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    int nivel_bateria;
+
+    srand(time(0));
+
+    do {
+        nivel_bateria = rand() % 101;
+
+        printf("Nível da bateria: %d%%\n", nivel_bateria);
+
+        if (nivel_bateria < 20) {
+            printf("Aviso: Bateria baixa! Por favor, recarregue a bateria.\n");
+        } else {
+            printf("Bateria em nível seguro.\n");
+        }
+
+        printf("Pressione Enter para verificar o nível da bateria novamente...\n");
+        getchar();
+
+    } while (nivel_bateria < 20);
+
+    printf("Nível da bateria está acima de 20%%. Programa encerrado.\n");
+    return 0;
+}
