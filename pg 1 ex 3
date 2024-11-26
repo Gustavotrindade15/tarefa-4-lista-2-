@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+int main () {
+    const int meta = 10000;
+    int passos, soma;
+    
+    printf("Meta diária de passos: %d\n", meta);
+    
+    while(soma < meta) {
+    
+        printf("Digite a quantidade de passos dados até este momento: ");
+        scanf("%d", &passos);
+        
+        soma += passos;
+        
+        printf("Passos dados até este momento: %d\n", soma);
+        
+        if(soma >= meta) {
+            printf("Meta diária de %d passos atingida!", meta);
+        }
+    return 0;
+    }
