@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    float distancia;
+    char comando[10];
+
+    srand(time(0));
+
+    do {
+        distancia = (rand() % 900) / 10.0;
+
+        printf("Distância medida pelo sensor: %.2f cm\n", distancia);
+
+        if (distancia < 10) {
+            printf("Distância menor que 10 cm detectada. Encerrando a leitura.\n");
+            break;
+        }
+
+        printf("Deseja continuar a leitura? (digite 'sair' para encerrar ou qualquer outra coisa para continuar): ");
+        scanf("%s", comando);
+
+    } while (strcmp(comando, "sair") != 0);
+
+    printf("Programa encerrado.\n");
+    return 0;
+}
