@@ -1,0 +1,35 @@
+Alternativas:
+
+a) Os dados da primeira linha da matriz nos informa que, durante cada leitura, em cada lugar diferente, a temperatura geral pouco variou, se mantendo sempre entre 21 e 25 graus Celsius.
+
+b) A média de umidade do solo nos cinco momentos é de 40,4%.
+
+c) O momento em que a concentração de CO2 atingiu seu valor máximo foi no momento da terceira leitura, que teve como dado resultante 420ppm.
+
+d)   int ambientData[3][5] = { // Matriz fornecida no exemplo
+      {22, 25, 23, 21, 24}, // Temperaturas
+      {45, 38, 42, 40, 37}, // Umidade
+      {400, 380, 420, 410, 390} // CO2
+   };
+
+   void setup() {
+       Serial.begin(9600);
+   }
+   void loop() {
+       int totalLocais = 3;
+       int totalLeituras = 5;
+       int somaTemperaturas = 0;
+       int totalTemperaturas = 0;
+
+       for (int j = 0; j < totalLeituras; j++) {
+           somaTemperaturas += ambientData[0][j];
+           totalTemperaturas++;
+       }
+ 
+       float mediaTemperatura = (float)somaTemperaturas / totalTemperaturas;
+
+       Serial.print("Media das temperaturas: ");
+       Serial.println(mediaTemperatura);
+
+       delay(4000);
+   }
