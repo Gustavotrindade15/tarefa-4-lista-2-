@@ -1,0 +1,30 @@
+Exercícios práticos usando Arduino
+
+1) Deve-se declarar como: int cameraData[10];
+
+2) cameraData|3| = analogRead(A1) tem a função de realizar a leitura da porta analógica A1 do Arduino e armazenar esse dado no índice [3] do vetor cameraData.
+
+3) Para realizar a inicialização de um vetor de floats chamado "temperaturas" devemos criar um vetor chamado "temperaturas" com espaço para 5 leituras, sendo assim: float temperaturas[4] = {25.5, 26.0, 24.8, 27.3, 26.5};
+
+4) A função do código abaixo é a de iterar os quatro primeiros elementos do comando ledPins, iniciando em 0 e indo de 1 em 1 até o último elemento e exibindo esses valores no monitor serial. 
+   Uma resposta para isso seria a exibição desses valores que teriam que ser definidos anteriormente diretamente no monitor serial, um por vez.
+
+5) int ledPins[4] = {7, 1, 5, 2};                     6) Inicialmente devemos declará-lo como um vetor de tamanho cinco: int randomValues[5], após isso, devemos preencher esse vetor com valores aleatórios e gerá-los aleatoriamente dentro do void setup:
+                                                         for (int i = 0; i < 5; i++) { randomValues[i] = random(0, 101);
+void setup() {                                                
+
+  Serial.begin(9600);
+                                                      7) O código em questão percorrerá os valores do vetor e repetidamente percorrerá até encontrar o valor 150, esse que será responsável por finalizar esse loop de "procura" e finalizará o processo.
+  for (int i = 0; i < 4; i++) {
+    pinMode(ledPins[i], OUTPUT);                      
+  }                                                   8) sizeof(sensorData) retorna o tamanho total do vetor em bytes.
+   }                                                     sizeof(sensorData[0]) retorna o tamanho do primeiro elemento do vetor sensorData. 
+                                                         Ao dividir o tamanho total do vetor pelo tamanho de um único elemento, obtemos o número de elementos do vetor.
+
+void loop() {
+  for (int i = 0; i < 4; i++) {
+    Serial.println(ledPins[i]);
+  }
+  
+  delay(3000);
+}
