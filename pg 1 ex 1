@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
+
+int main() {
+    float temp;
+
+    while (1) {
+        printf("Digite a temperatura atual em °C: ");
+        scanf("%f", &temp);
+
+        if (temp < 20.0 || temp > 25.0) {
+            printf("Temperatura fora da faixa segura! (%.2f °C)\n", temp);
+        } else {
+            printf("Temperatura dentro da faixa segura. (%.2f °C)\n", temp);
+        }
+
+        sleep(1);
+    }
+
+    return 0;
+}
