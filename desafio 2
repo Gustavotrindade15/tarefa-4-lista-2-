@@ -1,0 +1,142 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int posX = 0, posY = 0;
+int bateria = 100;
+
+void controleMovimento() {
+    char direcao;
+    printf("\nControle de Movimento (W = Cima, S = Baixo, A = Esquerda, D = Direita):\n");
+    printf("Digite a direcao: ");
+    scanf(" %c", &direcao);
+
+    if (bateria <= 0) {
+        printf("Bateria insuficiente! Recarregue antes de mover.\n");
+        return;
+    }
+
+    switch (direcao) {
+        case 'W': case 'w': if (posY < 9) posY++; break;
+        case 'S': case 's': if (posY > 0) posY--; break;
+        case 'A': case 'a': if (posX > 0) posX--; break;
+        case 'D': case 'd': if (posX < 9) posX++; break;
+        default: printf("Direcao invalida!\n"); return;
+    }
+
+    bateria -= 5;
+    printf("Posicao atual do robo: (%d, %d)\n", posX, posY);
+    printf("Bateria restante: %d%%\n", bateria);
+}
+
+void leituraSensores() {
+    if (bateria <= 0) {
+        printf("Bateria insuficiente! Recarregue antes de usar os sensores.\n");
+        return;
+    }
+
+    srand(time(0));
+    int distancia = rand() % 101;
+    bateria -= 3;
+
+    printf("Sensor detectou um obstaculo a %d cm de distancia.\n", distancia);
+    printf("Bateria restante: %d%%\n", bateria);
+}
+
+void controleAtuacao() {
+    int opcao;
+    printf("\nControle de Atuacao:\n");
+    printf("1. Acionar Braco\n");
+    printf("2. Acionar Garra\n");
+    printf("Escolha uma opcao: ");
+    scanf("%d", &opcao);
+
+    if (bateria <= 0) {
+        printf("Bateria insuficiente! Recarregue antes de acionar atuadores.\n");
+        return;
+    }
+
+    switch (opcao) {
+        case 1: 
+            printf("Braco acionado.\n");
+            bateria -= 10; 
+            break;
+        case 2: 
+            printf("Garra acionada.\n");
+            bateria -= 10; 
+            break;
+        default: 
+            printf("Opcao invalida!\n"); 
+            return;
+    }
+
+    printf("Bateria restante: %d%%\n", bateria);
+}
+
+void monitoramentoBateria() {
+    printf("\nMonitoramento de Bateria:\n");
+    printf("Nivel atual de bateria: %d%%\n", bateria);
+
+    if (bateria <= 20) {
+        printf("Alerta: Nivel de bateria baixo! Recarregue o robo em breve.\n");
+    }
+}
+
+void navegacaoAutonoma() {
+    int destinoX, destinoY;
+    printf("\nNavegacao Autonoma:\n");
+    printf("Digite as coordenadas do destino (X Y) no grid 5x5 (0 a 4): ");
+    scanf("%d %d", &destinoX, &destinoY);
+
+    if (destinoX < 0 || destinoX > 4 || destinoY < 0 || destinoY > 4) {
+        printf("Coordenadas invalidas!\n");
+        return;
+    }
+
+    if (bateria <= 0) {
+        printf("Bateria insuficiente! Recarregue antes de navegar.\n");
+        return;
+    }
+
+    int distancia = abs(destinoX - posX) + abs(destinoY - posY);
+    int consumo = distancia * 5;
+
+    if (bateria >= consumo) {
+        posX = destinoX;
+        posY = destinoY;
+        bateria -= consumo;
+        printf("Robo chegou ao destino (%d, %d).\n", posX, posY);
+    } else {
+        printf("Bateria insuficiente para chegar ao destino!\n");
+    }
+
+    printf("Bateria restante: %d%%\n", bateria);
+}
+
+int main() {
+    int opcao;
+
+    do {
+        printf("\n=== Controle do Robo ===\n");
+        printf("1. Controle de Movimento\n");
+        printf("2. Leitura de Sensores de Distancia\n");
+        printf("3. Controle de Atuacao\n");
+        printf("4. Monitoramento de Bateria\n");
+        printf("5. Navegacao Autonoma\n");
+        printf("6. Sair\n");
+        printf("Escolha uma opcao: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1: controleMovimento(); break;
+            case 2: leituraSensores(); break;
+            case 3: controleAtuacao(); break;
+            case 4: monitoramentoBateria(); break;
+            case 5: navegacaoAutonoma(); break;
+            case 6: printf("Encerrando o programa. Ate logo!\n"); break;
+            default: printf("Opcao invalida!\n");
+        }
+    } while (opcao != 6);
+
+    return 0;
+}
