@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <math.h>
+
+double calcularMedia(double precos[], int tamanho) {
+    double soma = 0.0;
+    for (int i = 0; i < tamanho; i++) {
+        soma += precos[i];
+    }
+    return soma / tamanho;
+}
+
+double calcularDesvioPadrao(double precos[], int tamanho, double media) {
+    double somaQuadrados = 0.0;
+    for (int i = 0; i < tamanho; i++) {
+        somaQuadrados += pow(precos[i] - media, 2);
+    }
+    return sqrt(somaQuadrados / tamanho);
+}
+
+int main() {
+    while (1) {
+        int dias;
+        printf("Digite o numero de dias para analisar (ou 0 para sair): ");
+        scanf("%d", &dias);
+
+        if (dias == 0) {
+            printf("Encerrando o programa. Ate logo!\n");
+            break;
+        }
+
+        double precos[dias];
+        printf("Digite os precos das acoes para %d dias:\n", dias);
+        for (int i = 0; i < dias; i++) {
+            printf("Preco do dia %d: ", i + 1);
+            scanf("%lf", &precos[i]);
+        }
+
+        double media = calcularMedia(precos, dias);
+        double desvioPadrao = calcularDesvioPadrao(precos, dias, media);
+
+        printf("\n=== Resultados da Analise ===\n");
+        printf("Media dos precos: %.2lf\n", media);
+        printf("Desvio padrao: %.2lf\n", desvioPadrao);
+
+        if (desvioPadrao < media * 0.05) {
+            printf("Desempenho: Estavel\n");
+        } else {
+            printf("Desempenho: Volatil\n");
+        }
+
+        char opcao;
+        printf("\nDeseja analisar outro periodo? (s/n): ");
+        scanf(" %c", &opcao);
+
+        if (opcao == 'n' || opcao == 'N') {
+            printf("Encerrando o programa. Ate logo!\n");
+            break;
+        }
+
+        printf("\n");
+    }
+
+    return 0;
+}
